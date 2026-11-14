@@ -38,7 +38,8 @@ def get_db_config():
         if "sslmode" in db:
             config["sslmode"] = db["sslmode"]
         return config
-    except Exception:
+    except Exception as secrets_error:
+        st.warning(f"Secrets error: {secrets_error}")
         config = {
             "host": os.getenv("PGHOST", "localhost"),
             "port": int(os.getenv("PGPORT", "5432")),
